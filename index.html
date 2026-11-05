@@ -1,0 +1,113 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>التيار والجهد والمقاومة | فيزياء تفاعلية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&family=Architects+Daughter&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#2b2420;--paper:#f6efdf;--y:#ffd84a;--r:#ef6b4f;--b:#4f8fd9;--g:#5fb36b}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--paper);background-image:radial-gradient(#e8dcc2 1px,transparent 1px);background-size:18px 18px;color:var(--ink);font-family:Cairo,Tahoma,sans-serif}
+.en{font-family:'Architects Daughter','Comic Sans MS',cursive;font-size:.75em;opacity:.7;direction:ltr;display:block}
+header{display:flex;align-items:center;gap:10px;padding:12px 14px}
+.logo{background:var(--y);border:2.5px solid var(--ink);border-radius:255px 15px 225px 15px/15px 225px 15px 255px;padding:4px 12px;font-weight:900;transform:rotate(-2deg);box-shadow:3px 3px 0 var(--ink)}
+h1{font-size:1.25rem;margin:0;font-weight:900}
+main{max-width:980px;margin:auto;padding:0 12px 30px;display:grid;gap:14px}
+@media(min-width:820px){main{grid-template-columns:1.3fr 1fr}}
+.card{background:#fffaf0;border:2.5px solid var(--ink);border-radius:20px 6px 18px 8px/8px 18px 6px 20px;box-shadow:4px 4px 0 var(--ink);padding:12px}
+svg{width:100%;height:auto;display:block}
+.tabs{display:flex;gap:6px;margin-bottom:10px}
+.tabs button,.btn{font:700 .95rem Cairo,sans-serif;border:2px solid var(--ink);background:#fff;border-radius:12px 4px 10px 5px;padding:6px 12px;cursor:pointer;box-shadow:2px 2px 0 var(--ink)}
+.tabs button.on,.btn.on{background:var(--y)}
+.row{margin:10px 0}.row label{display:flex;justify-content:space-between;font-weight:700}
+.val{font-family:'Architects Daughter',cursive;font-size:1.3rem;direction:ltr}
+input[type=range]{direction:ltr;width:100%;height:34px;accent-color:var(--r)}
+input:disabled{opacity:.45}
+.formula{font-family:'Architects Daughter',cursive;font-size:1.6rem;text-align:center;direction:ltr;background:var(--y);border:2px dashed var(--ink);border-radius:10px;padding:6px;margin:8px 0}
+.solve{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.hide{display:none}.ex{border-bottom:2px dashed #cbb;padding:8px 0}
+.tri text{font-family:'Architects Daughter',cursive}
+small{opacity:.75}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><filter id="rough"><feTurbulence type="fractalNoise" baseFrequency=".03" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="3.5"/></filter>
+<filter id="glow"><feGaussianBlur stdDeviation="8"/></filter></svg>
+<header><div class="logo">فيزياء تفاعلية ⚡</div><div><h1>التيار والجهد والمقاومة</h1><span class="en">Ohm's Law · V = I × R</span></div></header>
+<main>
+<section class="card">
+<div class="tabs"><button class="on" data-t="c">الدائرة</button><button data-t="f">الصيغة</button><button data-t="e">أمثلة</button></div>
+<div id="tc">
+<svg viewBox="0 0 400 300" id="circ">
+<g filter="url(#rough)" fill="none" stroke="#2b2420" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+<path id="wire" d="M60 150 V50 H340 V250 H60 V150"/>
+</g>
+<!-- battery -->
+<g filter="url(#rough)"><rect x="35" y="115" width="50" height="70" rx="8" fill="#9fd08a" stroke="#2b2420" stroke-width="3"/><rect x="50" y="106" width="20" height="10" fill="#2b2420"/>
+<text x="60" y="140" text-anchor="middle" font-size="18" font-weight="900" fill="#2b2420">+</text><text x="60" y="176" text-anchor="middle" font-size="20" fill="#2b2420">−</text></g>
+<text x="95" y="205" font-family="Architects Daughter" font-size="16" id="tV">6V</text>
+<!-- resistor -->
+<ellipse id="heat" cx="200" cy="50" rx="60" ry="26" fill="#ff5a2a" opacity="0" filter="url(#glow)"/>
+<g filter="url(#rough)"><rect x="150" y="34" width="100" height="32" rx="12" fill="#e9c58d" stroke="#2b2420" stroke-width="3" id="res"/>
+<rect x="170" y="34" width="8" height="32" fill="#8b4a2b"/><rect x="190" y="34" width="8" height="32" fill="#2b2420"/><rect x="210" y="34" width="8" height="32" fill="#d23"/></g>
+<text x="200" y="95" text-anchor="middle" font-family="Architects Daughter" font-size="16" id="tR">10Ω</text>
+<!-- lamp -->
+<circle id="lglow" cx="340" cy="150" r="40" fill="#ffd84a" opacity="0" filter="url(#glow)"/>
+<g filter="url(#rough)"><circle cx="340" cy="150" r="22" fill="#fff8d0" stroke="#2b2420" stroke-width="3" id="bulb"/><path d="M330 158 l5-14 5 10 5-10 5 14" fill="none" stroke="#2b2420" stroke-width="2"/></g>
+<!-- ammeter -->
+<g filter="url(#rough)"><circle cx="200" cy="250" r="24" fill="#fff" stroke="#2b2420" stroke-width="3"/></g>
+<text x="200" y="257" text-anchor="middle" font-weight="900" font-size="20">A</text>
+<text x="200" y="292" text-anchor="middle" font-family="Architects Daughter" font-size="16" id="tI">0.6A</text>
+<g id="dots"></g>
+<text x="250" y="200" font-family="Architects Daughter" font-size="15" id="tP" fill="#c0392b">P = 3.6W</text>
+</svg>
+<small>النقاط الزرقاء = الإلكترونات/التيار. كل ما زاد التيار تسرع أكثر، والمقاومة تسخن واللمبة تنور.</small>
+</div>
+<div id="tf" class="hide">
+<svg viewBox="0 0 300 210" class="tri" id="tri"><g filter="url(#rough)"><path d="M150 15 L285 195 H15 Z" fill="#fff4c2" stroke="#2b2420" stroke-width="3.5"/><path d="M60 125 H240 M150 125 V195" stroke="#2b2420" stroke-width="3"/></g>
+<text x="150" y="100" text-anchor="middle" font-size="44" id="kV">V</text><text x="100" y="178" text-anchor="middle" font-size="40" id="kI">I</text><text x="200" y="178" text-anchor="middle" font-size="40" id="kR">R</text></svg>
+<p>غطِّ الحرف اللي تبي تحسبه بإصبعك:</p>
+<p class="val" style="text-align:center">V = I × R &nbsp;·&nbsp; I = V ÷ R &nbsp;·&nbsp; R = V ÷ I</p>
+<p><b>الجهد V (فولت):</b> "الدفعة" اللي تحرك الكهرباء.<br><b>التيار I (أمبير):</b> كمية الكهرباء اللي تمشي في الثانية.<br><b>المقاومة R (أوم Ω):</b> قد إيش السلك "يعاند" مرور التيار.<br><b>القدرة P = V × I (واط):</b> الطاقة اللي تتحول حرارة أو ضوء.</p>
+</div>
+<div id="te" class="hide">
+<div class="ex">💡 <b>مصباح 220V يسحب 0.27A</b><br>R = 220 ÷ 0.27 ≈ <b>815Ω</b>، والقدرة ≈ 60W <button class="btn" onclick="load(12,0.6/4,80)">جرّبها مصغّرة</button></div>
+<div class="ex">📱 <b>شاحن جوال 5V و 2A</b><br>R = 5 ÷ 2 = <b>2.5Ω</b>، القدرة = 10W <button class="btn" onclick="load(5,2,2.5)">جرّب</button></div>
+<div class="ex">🔦 <b>كشاف بطاريتين 3V، لمبة 10Ω</b><br>I = 3 ÷ 10 = <b>0.3A</b> <button class="btn" onclick="load(3,.3,10)">جرّب</button></div>
+</div>
+</section>
+<section class="card">
+<div class="solve"><b>حل للمجهول:</b><button class="btn" data-s="V">V</button><button class="btn on" data-s="I">I</button><button class="btn" data-s="R">R</button></div>
+<div class="formula" id="fx">6.0 V = 0.60 A × 10 Ω</div>
+<div class="row"><label><span>الجهد V<span class="en">Voltage</span></span><span class="val" id="vV"></span></label><input id="V" type="range" min="0" max="12" step="0.1" value="6"></div>
+<div class="row"><label><span>التيار I<span class="en">Current</span></span><span class="val" id="vI"></span></label><input id="I" type="range" min="0" max="2" step="0.01" value="0.6"></div>
+<div class="row"><label><span>المقاومة R<span class="en">Resistance</span></span><span class="val" id="vR"></span></label><input id="R" type="range" min="1" max="100" step="0.5" value="10"></div>
+<div id="warn" style="color:#c0392b;font-weight:700;min-height:1.4em"></div>
+<label><input type="checkbox" id="showP" checked> عرض القدرة (واط)</label>
+<div style="margin-top:10px;display:flex;gap:8px"><button class="btn" id="reset">↺ إعادة</button><button class="btn" id="flip">⇄ اقلب البطارية</button></div>
+</section>
+</main>
+<script>
+const S={V:6,I:.6,R:10,solve:'I',dir:1},$=id=>document.getElementById(id),lim={V:[0,12],I:[0,2],R:[1,100]};
+const clamp=(k,x)=>Math.min(lim[k][1],Math.max(lim[k][0],x));
+function compute(){let w='';const s=S.solve;
+ if(s==='I'){S.I=S.V/S.R;if(S.I>2){w='التيار أكبر من مدى المؤشر (2A)';}}
+ else if(s==='V'){S.V=S.I*S.R;if(S.V>12)w='الجهد المطلوب أكبر من 12V';}
+ else{S.R=S.I>0?S.V/S.I:Infinity;if(S.I===0)w='بدون تيار: المقاومة لا نهائية (دائرة مفتوحة)';else if(S.R>100||S.R<1)w='المقاومة خارج المدى 1–100Ω';}
+ $('warn').textContent=w;render()}
+const f=(x,d)=>isFinite(x)?x.toFixed(d):'∞';
+function render(){for(const k of'VIR'){const el=$(k);el.disabled=S.solve===k;if(isFinite(S[k]))el.value=clamp(k,S[k]);['kV','kI','kR'].forEach(t=>$(t).setAttribute('fill',t[1]===S.solve?'#ef6b4f':'#2b2420'))}
+ $('vV').textContent=f(S.V,1)+' V';$('vI').textContent=f(S.I,2)+' A';$('vR').textContent=f(S.R,1)+' Ω';
+ $('fx').textContent=`${f(S.V,1)} V = ${f(S.I,2)} A × ${f(S.R,1)} Ω`;
+ const P=isFinite(S.R)?S.V*S.I:0;$('tP').textContent='P = '+P.toFixed(2)+' W';$('tP').style.display=$('showP').checked?'':'none';
+ $('tV').textContent=f(S.V,1)+'V';$('tR').textContent=f(S.R,1)+'Ω';$('tI').textContent=f(S.I,2)+'A';
+ const h=Math.min(1,P/12);$('heat').setAttribute('opacity',h*.85);$('lglow').setAttribute('opacity',Math.min(1,P/6));
+ $('bulb').setAttribute('fill',`hsl(50,100%,${92-h*30}%)`);$('res').setAttribute('fill',`hsl(${35-h*30},${60+h*30}%,${73-h*15}%)`)}
+for(const k of'VIR')$(k).addEventListener('input',e=>{S[k]=+e.target.value;compute()});
+document.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{S.solve=b.dataset.s;document.querySelectorAll('[data-s]').forEach(x=>x.classList.toggle('on',x===b));compute()});
+document.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-t]').forEach(x=>x.classList.toggle('on',x===b));['c','f','e'].forEach(t=>$('t'+t).classList.toggle('hide',t!==b.dataset.t))});
+$('showP').onchange=render;$("reset").onclick=()=>{document.querySelector("[data-s=I]").click();load(6,.6,10);scrollTo(0,0)};$('flip').onclick=()=>{S.dir*=-1};
+function load(v,i,r){Object.assign(S,{V:v,I:i,R:r});compute();document.querySelector('[data-t=c]').click()}
+// dots
+const wire=$('wire'),L=wire.getTotalLength(),N=18,g=$('dots'),ds=[];
+for(let n=0;n<N;n++){const c=document.createElementNS('http://www.w3.org/2000/svg','circle');c.setAttribute('r',5);c.setAttribute('fill','#4f8fd9');c.setAttribute('stroke','#2b2420');c.setAttribute('stroke-width',1.5);g.appendChild(c);ds.push(c)}
+let off=0,last=performance.now();
+function tick(t){const dt=Math.min(.05,(t-last)/1000);last=t;const I=isFinite(S.R)?S.I:0;off=(off+S.dir*I*120*dt+L)%L;
+ ds.forEach((c,n)=>{const p=wire.getPointAtLength((off+n*L/N)%L);c.setAttribute('cx',p.x);c.setAttribute('cy',p.y);c.style.opacity=I>0.005?1:.25});requestAnimationFrame(tick)}
+compute();requestAnimationFrame(tick);
+</script></body></html>
